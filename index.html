@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 5</title>
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  </head>
+  <body>
+    <div class="jwpnavbar darktext">
+      <h1 class="header-text">Navigation bar</h1>
+    </div>
+
+    <section class="parallax">
+      <img src="images/hill1.png" id="m1" alt="" />
+      <img src="images/hill2.png " id="m2" alt="" />
+      <img src="images/hill3.png" id="m3" alt="" />
+      <img src="images/hill4.png" id="m4" alt="" />
+      <img src="images/hill5.png" id="m5" alt="" />
+      <img src="images/leaf.png" id="leaf" alt="" />
+      <h2 id="text">Parallax Scrolling</h2>
+      <img src="images/tree.png" id="tree" alt="" />
+      <img src="images/tree copy.png.png" id="tree2" alt="" />
+
+      <img src="images/plant.png" id="plant" alt="" />
+    </section>
+
+    <section class="grid1">
+      <div id="cover">
+        <img src="images/3.gif" alt="Image 1" />
+        <img src="images/4.jpg" alt="Image 2" />
+      </div>
+    </section>
+
+    <section>
+      <p class="reveal-type" data-bg-color="#353535" data-fg-color="yellow">
+        The web isn't static anymore, interactivity and motion now dominate.
+       
+      </p>
+    </section>
+
+    <div class="section2">
+      <img class="moon" id="scaleElement" src="images/moon.png" alt="" />
+    </div>
+
+    <section class="button1">
+      <button id="resetButton">Reset Page</button>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+
+    <script src="script.js"></script>
+
+    <script>
+      // Initialize ScrollMagic controller
+      var controller = new ScrollMagic.Controller();
+
+      
+      var scene = new ScrollMagic.Scene({
+        triggerElement: ".section2",
+        duration: "200%", 
+        triggerHook: 0.5, 
+      })
+        .on("progress", function (e) {
+          var scrollSpeed = e.progress * 2; 
+          var scaleValue = 1 + scrollSpeed;
+
+         
+          gsap.to("#scaleElement", 0.2, {
+            scale: scaleValue,
+            ease: Power0.easeNone,
+          });
+        })
+        .addTo(controller);
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const splitTypes = document.querySelectorAll(".reveal-type");
+
+      splitTypes.forEach((char, i) => {
+        const bg = char.dataset.bgColor;
+        const fg = char.dataset.fgColor;
+
+        const text = new SplitType(char, { types: "chars" });
+
+        gsap.fromTo(
+          text.chars,
+          {
+            color: bg,
+            
+          },
+          {
+            
+            color: fg,
+            duration: 0.3,
+            stagger: 0.02,
+            scrollTrigger: {
+              trigger: char,
+              start: "top 80%",
+              end: "top 20%",
+              scrub: true,
+              markers: false,
+              toggleActions: "play play reverse reverse",
+            },
+          }
+        );
+      });
+
+      const lenis = new Lenis();
+
+      lenis.on("scroll", (e) => {
+        console.log(e);
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
+  </body>
+</html>

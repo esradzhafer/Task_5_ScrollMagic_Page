@@ -1,0 +1,35 @@
+.parallax {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+  
+    #text {
+      position: absolute;
+      font-size: 5em;
+      color: #333;
+    }
+  
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+  }
+  
+  .sec {
+    position: relative;
+    /* background: #003329; */
+    padding: 500px;
+  
+    h2 {
+      font-size: 3em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+  }
+  
